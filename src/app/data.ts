@@ -16,7 +16,7 @@ type PropertyType = {
 
 export async function fetchPropertiesLimits(): Promise<any> {
   try {
-    const properties = await fetch('https://s3.us-west-2.amazonaws.com/cdsn.number8.com/LA/listings.json')
+    const properties = await fetch('https://s3.us-west-2.amazonaws.com/cdn.number8.com/LA/listings.json')
       .then(result => result.json())
 
     let maxBedrooms = 0;

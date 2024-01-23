@@ -4,7 +4,6 @@ import Select from "@/components/Select";
 import RangeSlider from "@/components/RangeSlider";
 import Button from "@/components/Button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
 
 type RangeType = [
   start: string,
@@ -17,68 +16,87 @@ type FiltersType = {
   range: RangeType | undefined;
 }
 
-export default function Search() {
+export default function Search({
+  maxBedrooms,
+  maxBathrooms,
+  maxParking,
+  minRange,
+  maxRange,
+}: {
+  maxBedrooms: number;
+  maxBathrooms: number;
+  maxParking: number;
+  minRange: number;
+  maxRange: number;
+}) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
-  const [filters, setFilters] = useState<FiltersType>({
-    bedrooms: undefined,
-    bathrooms: undefined,
-    parking: undefined,
-    range: undefined,
-  })
+  const params = new URLSearchParams(searchParams)
+
+  const getOptions = (maxValue: number) => {
+    if (!maxValue) return [{ label: '-', value: undefined }]
+
+    const items = Array.from(Array(maxValue + 1).keys())
+    items.shift()
+
+    return [
+      { label: '-', value: undefined },
+      ...items.map(value => ({ label: value.toString(), value: value.toString() }))
+    ]
+  }
 
   const handleFilters = (event: any) => {
-    setFilters(prevState => ({ ...prevState, [event.target.name]: event.target.value }))
+    event.target.value ? params.set(event.target.name, event.target.value) : params.delete(event.target.name)
   }
 
   const handleSearch = () => {
-    const params = new URLSearchParams(searchParams)
-    filters.bedrooms ? params.set('bedrooms', filters.bedrooms) : params.delete('bedrooms')
-    filters.bathrooms ? params.set('bathrooms', filters.bathrooms) : params.delete('bathrooms')
-    filters.parking ? params.set('parking', filters.parking) : params.delete('parking')
-    filters.bathrooms ? params.set('bathrooms', filters.bathrooms) : params.delete('bathrooms')
-
+    console.log(params.toString())
     replace(`${pathname}?${params.toString()}`)
   }
 
   return (
     <div className="flex">
+
       <div className="flex-1" style={{ border: '1px solid red' }}>
-        <label>Bedrooms:</label>
+        <label htmlFor="filterBedrooms">Bedrooms:</label>
         <Select
+          id="filterBedrooms"
           name="bedrooms"
-          value={filters.bedrooms}
+          value={searchParams.get('bedrooms')?.toString()}
           onChange={handleFilters}
-          options={[
-            { label: "1", value: "1" },
-            { label: "2", value: "2" },
-            { label: "3", value: "3" }
-          ]}/>
+          options={getOptions(maxBedrooms)}
+        />
       </div>
+
       <div className="flex-1" style={{ border: '1px solid red' }}>
         <label>Bathrooms:</label>
-        <Select options={[
-          { label: "1", value: "1" },
-          { label: "2", value: "2" },
-          { label: "3", value: "3" }
-        ]}/>
+        <Select
+          name="bathrooms"
+          value={searchParams.get('bathrooms')?.toString()}
+          onChange={handleFilters}
+          options={getOptions(maxBathrooms)}
+        />
       </div>
       <div className="flex-1" style={{ border: '1px solid red' }}>
         <label>Parking:</label>
-        <Select options={[
-          { label: "1", value: "1" },
-          { label: "2", value: "2" },
-          { label: "3", value: "3" }
-        ]}/>
+        <Select
+          name="parking"
+          value={searchParams.get('parking')?.toString()}
+          onChange={handleFilters}
+          options={getOptions(maxParking)}
+        />
       </div>
+
       <div className="flex-1" style={{ border: '1px solid red' }}>
         <label>Price Range:</label>
         <RangeSlider/>
       </div>
+
       <div className="flex-none w-24" style={{ border: '1px solid red' }}>
         <Button label="Search" onClick={handleSearch}/>
       </div>
+
     </div>
   )
 }
