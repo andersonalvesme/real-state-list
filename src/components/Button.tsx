@@ -2,7 +2,7 @@ import { MouseEventHandler } from "react";
 
 type ButtonType = {
   label: string;
-  onClick: MouseEventHandler;
+  onClick?: MouseEventHandler;
 }
 
 export default function Button({ label, onClick }: ButtonType) {

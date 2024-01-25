@@ -17,7 +17,7 @@ export default function Select({ id, name, value, options, onChange }: SelectTyp
     <select
       id={id}
       name={name}
-      className="p-1 rounded border border-slate-300"
+      className="p-1 rounded border border-slate-300 ml-2"
       value={value}
       onChange={onChange}>
       {options.map((option: OptionType) => {

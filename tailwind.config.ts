@@ -9,9 +9,6 @@ const config: Config = {
   theme: {
     container: {
       center: true,
-      screens: {
-        '2xl': '1240px',
-      }
     },
     extend: {
       backgroundImage: {
