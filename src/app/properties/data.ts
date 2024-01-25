@@ -1,3 +1,5 @@
+import { dataMocked } from "@/assets/dataMocked";
+
 type PropertyType = {
   Id: number;
   DateListed: string;
@@ -14,10 +16,20 @@ type PropertyType = {
   YearBuilt: number;
 }
 
+export async function fetchProperties(
+  query?: string,
+  currentPage?: number
+): Promise<PropertyType[]> {
+  try {
+    return dataMocked
+  } catch (error) {
+    throw new Error('Occurred a problem getting from https://s3.us-west-2.amazonaws.com/cdn.number8.com/LA/listings.json')
+  }
+}
+
 export async function fetchPropertiesLimits(): Promise<any> {
   try {
-    const properties = await fetch('https://s3.us-west-2.amazonaws.com/cdn.number8.com/LA/listings.json')
-      .then(result => result.json())
+    const properties = dataMocked
 
     let maxBedrooms = 0;
     let maxBathrooms = 0;
@@ -41,13 +53,6 @@ export async function fetchPropertiesLimits(): Promise<any> {
       maxRange,
     }
   } catch (error) {
-    throw new Error('Not found data from url https://s3.us-west-2.amazonaws.com/cdn.number8.com/LA/listings.json')
+    throw new Error('Occurred a problem getting from https://s3.us-west-2.amazonaws.com/cdn.number8.com/LA/listings.json')
   }
-}
-
-export async function fetchProperties(
-  query: string,
-  currentPage: number
-) {
-
 }
