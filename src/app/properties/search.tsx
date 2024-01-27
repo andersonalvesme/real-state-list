@@ -2,43 +2,37 @@
 
 import Select from "@/components/Select";
 import Button from "@/components/Button";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import DoubleRangeSlider from "@/components/DoubleRangeSlider";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
 
-type RangeType = [
-  start: string,
-  end: string,
-]
-type FiltersType = {
-  bedrooms: string | undefined;
-  bathrooms: string | undefined;
-  parking: string | undefined;
-  range: RangeType | undefined;
+export type PropertyAttributesType = {
+  bedrooms?: number;
+  bathrooms?: number;
+  parking?: number;
+  range_start?: number;
+  range_end?: number;
 }
 
-export default function Search({
-  maxBedrooms,
-  maxBathrooms,
-  maxParking,
-  minRange,
-  maxRange,
-}: {
-  maxBedrooms: number;
-  maxBathrooms: number;
-  maxParking: number;
-  minRange: number;
-  maxRange: number;
-}) {
+export default function Search({ propertyLimits }: { propertyLimits: PropertyAttributesType }) {
+  const { replace } = useRouter()
+
   const searchParams = useSearchParams()
   const pathname = usePathname()
-  const { replace } = useRouter()
-  const params = new URLSearchParams(searchParams)
+  const params = useMemo(() => new URLSearchParams(searchParams), [searchParams])
 
-  const getOptions = (maxValue: number) => {
+  const [filters, setFilters] = useState<PropertyAttributesType>({
+    bedrooms: searchParams.get('bedrooms') ? parseInt(searchParams.get('bedrooms') ?? '') : undefined,
+    bathrooms: searchParams.get('bathrooms') ? parseInt(searchParams.get('bathrooms') ?? '') : undefined,
+    parking: searchParams.get('parking') ? parseInt(searchParams.get('parking') ?? '') : undefined,
+    range_start: searchParams.get('range_start') ? parseInt(searchParams.get('range_start') ?? '') : undefined,
+    range_end: searchParams.get('range_end') ? parseInt(searchParams.get('range_end') ?? '') : undefined,
+  })
+
+  const getOptions = (maxValue: number | undefined) => {
     if (!maxValue) return [{ label: '-', value: '-' }]
 
     const items = Array.from(Array(maxValue + 1).keys())
-    items.shift()
 
     return [
       { label: '-', value: '-' },
@@ -46,8 +40,10 @@ export default function Search({
     ]
   }
 
-  const handleFilters = (event: any) => {
-    event.target.value ? params.set(event.target.name, event.target.value) : params.delete(event.target.name)
+  const handleInput = (event: any) => {
+    event.target.value !== '-' ? params.set(event.target.name, event.target.value) : params.delete(event.target.name)
+
+    setFilters(prevState => ({ ...prevState, [event.target.name]: event.target.value }))
   }
 
   const handleSearch = () => {
@@ -55,15 +51,15 @@ export default function Search({
   }
 
   return (
-    <div className="flex flex-wrap justify-between gap-2">
+    <div className="flex flex-wrap gap-4">
       <div>
         <label htmlFor="filterBedrooms">Bedrooms:</label>
         <Select
           id="filterBedrooms"
           name="bedrooms"
-          value={searchParams.get('bedrooms')?.toString()}
-          onChange={handleFilters}
-          options={getOptions(maxBedrooms)}
+          value={filters.bedrooms}
+          onChange={handleInput}
+          options={getOptions(propertyLimits.bedrooms)}
         />
       </div>
       <div>
@@ -71,9 +67,9 @@ export default function Search({
         <Select
           id="filterBathrooms"
           name="bathrooms"
-          value={searchParams.get('bathrooms')?.toString()}
-          onChange={handleFilters}
-          options={getOptions(maxBathrooms)}
+          value={filters.bathrooms}
+          onChange={handleInput}
+          options={getOptions(propertyLimits.bathrooms)}
         />
       </div>
       <div>
@@ -81,17 +77,18 @@ export default function Search({
         <Select
           id="filterParking"
           name="parking"
-          value={searchParams.get('parking')?.toString()}
-          onChange={handleFilters}
-          options={getOptions(maxParking)}
+          value={filters.parking}
+          onChange={handleInput}
+          options={getOptions((propertyLimits.parking))}
         />
       </div>
       <div className="flex">
         <label htmlFor="filterRange" className="mt-1">Price Range:</label>
         <DoubleRangeSlider
-          min={minRange}
-          max={maxRange}
-          onChange={({ min, max }: { min: number, max: number }) => console.log(`min = ${min}, max = ${max}`)}
+          min={propertyLimits.range_start}
+          max={propertyLimits.range_end}
+          onChange={handleInput}
+          filters={filters}
         />
       </div>
       <div className="flex-none w-24">
