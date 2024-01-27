@@ -17,7 +17,7 @@ export type PropertyType = {
   YearBuilt: number;
 }
 
-export async function fetchProperties(searchParams: PropertyAttributesType): Promise<PropertyType[]> {
+export async function getAll(searchParams: PropertyAttributesType): Promise<PropertyType[]> {
   let properties = dataMocked
 
   if (searchParams?.bedrooms) {
@@ -41,7 +41,11 @@ export async function fetchProperties(searchParams: PropertyAttributesType): Pro
   return properties.slice(0, 8)
 }
 
-export async function fetchPropertiesLimits(): Promise<PropertyAttributesType> {
+export async function getById(id: number): Promise<PropertyType | undefined> {
+  return dataMocked.find(property => property.Id == id)
+}
+
+export async function getAllLimits(): Promise<PropertyAttributesType> {
   const properties = dataMocked
 
   let bedrooms = 0;

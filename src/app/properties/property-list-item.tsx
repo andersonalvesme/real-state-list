@@ -10,7 +10,7 @@ type PropertyListItemType = {
 export default function PropertyListItem({ property }: PropertyListItemType) {
   return (
     <div className="overflow-hidden border rounded shadow hover:shadow-lg">
-      <Link href="#" className="relative block h-34 overflow-hidden">
+      <Link href={`/properties/${property.Id}`} className="relative block h-34 overflow-hidden">
         <Image
           priority
           className="object-cover w-full h-full transition-all hover:scale-110"
