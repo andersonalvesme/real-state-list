@@ -5,13 +5,13 @@ import { useDebouncedCallback } from "use-debounce";
 import { PropertyAttributesType } from "@/app/properties/search";
 
 type DoubleRangeSliderType = {
-  min: number,
-  max: number,
+  min?: number,
+  max?: number,
   onChange: Function,
   filters: PropertyAttributesType
 };
 
-export default function DoubleRangeSlider({ min, max, onChange, filters }: DoubleRangeSliderType) {
+export default function DoubleRangeSlider({ min = 0, max = 0, onChange, filters }: DoubleRangeSliderType) {
   const [minValue, setMinValue] = useState(filters.range_start ?? min);
   const [maxValue, setMaxValue] = useState(filters.range_end ?? max);
   const minValueRef = useRef<HTMLInputElement>(null);
@@ -47,7 +47,7 @@ export default function DoubleRangeSlider({ min, max, onChange, filters }: Doubl
   }, [maxValue, getPercent]);
 
   const setAfterDebounce = useDebouncedCallback((event, value) => {
-    onChange(event);
+    onChange(event, value);
   }, 500);
 
   return (
@@ -63,7 +63,7 @@ export default function DoubleRangeSlider({ min, max, onChange, filters }: Doubl
           const value = Math.min(+event.target.value, maxValue - 1);
           setMinValue(value);
           event.target.value = value.toString();
-          setAfterDebounce(event, value)
+          setAfterDebounce(event, value === min)
         }}
         className={cn("thumb thumb-zindex-3", {
           "thumb-zindex-5": minValue > max - 100
@@ -80,7 +80,7 @@ export default function DoubleRangeSlider({ min, max, onChange, filters }: Doubl
           const value = Math.max(+event.target.value, minValue + 1);
           setMaxValue(value);
           event.target.value = value.toString();
-          setAfterDebounce(event, value)
+          setAfterDebounce(event, value === max)
         }}
         className="thumb thumb-zindex-4"
       />

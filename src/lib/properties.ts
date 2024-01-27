@@ -17,22 +17,24 @@ export type PropertyType = {
   YearBuilt: number;
 }
 
-export async function fetchProperties(filters: PropertyAttributesType): Promise<PropertyType[]> {
+export async function fetchProperties(searchParams: PropertyAttributesType): Promise<PropertyType[]> {
   let properties = dataMocked
 
-  if (filters.bedrooms) {
-    properties = properties.filter(property => property.Bedrooms === filters.bedrooms)
-  }
-  if (filters.bathrooms) {
-    properties = properties.filter(property => property.Bathrooms === filters.bathrooms)
-  }
-  if (filters.parking) {
-    properties = properties.filter(property => property.Parking === filters.parking)
-  }
-  if (filters.range_start || filters.range_end) {
+  if (searchParams?.bedrooms) {
     properties = properties.filter(property => {
-      return (filters.range_start ? filters.range_start <= property["Sale Price"] : true) &&
-        (filters.range_end ? filters.range_end >= property["Sale Price"] : true)
+      return property.Bedrooms == searchParams.bedrooms
+    })
+  }
+  if (searchParams?.bathrooms) {
+    properties = properties.filter(property => property.Bathrooms == searchParams.bathrooms)
+  }
+  if (searchParams?.parking) {
+    properties = properties.filter(property => property.Parking == searchParams.parking)
+  }
+  if (searchParams?.range_start || searchParams?.range_end) {
+    properties = properties.filter(property => {
+      return (searchParams?.range_start ? searchParams.range_start <= property["Sale Price"] : true) &&
+        (searchParams?.range_end ? searchParams.range_end >= property["Sale Price"] : true)
     })
   }
 

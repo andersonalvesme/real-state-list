@@ -40,8 +40,12 @@ export default function Search({ propertyLimits }: { propertyLimits: PropertyAtt
     ]
   }
 
-  const handleInput = (event: any) => {
-    event.target.value !== '-' ? params.set(event.target.name, event.target.value) : params.delete(event.target.name)
+  const handleInput = (event: any, remove = false) => {
+    if (event.target.value !== '-' && !remove) {
+      params.set(event.target.name, event.target.value)
+    } else {
+      params.delete(event.target.name)
+    }
 
     setFilters(prevState => ({ ...prevState, [event.target.name]: event.target.value }))
   }

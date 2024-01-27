@@ -7,7 +7,7 @@ type OptionType = {
 type SelectType = {
   id: string;
   name: string;
-  value: string | undefined;
+  value: number | undefined;
   options: OptionType[];
   onChange: ChangeEventHandler;
 }
