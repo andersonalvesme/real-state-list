@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import cn from "classnames";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { toast } from "sonner";
 
 type Inputs = {
   full_name: string;
@@ -34,7 +35,7 @@ export default function Contact() {
     resolver: yupResolver(schema)
   })
   const onSubmit: SubmitHandler<Inputs> = data => {
-    console.log(data)
+    toast.success('Message sent successfully')
     reset()
   }
 

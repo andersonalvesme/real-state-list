@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const roboto = Roboto({
   weight: '400',
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
     <body className={`${roboto.className} text-sm font-normal`}>
+    <Toaster richColors/>
     <div className="container max-w-screen-lg md:mx-auto">
       {children}
     </div>
