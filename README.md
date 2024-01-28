@@ -49,18 +49,6 @@ PS: If you enter in a URL using an invalid Id, a NotFound page will be shown.
 - sonner: Used this package to show the toast with the success message and a modal showing the saved properties;
 - localStorage: To show the saved Properties I used the localStorage.
 
-## Result
-
-In these videos below I am showing the final result.
-
-### Properties
-
-![properties.gif](properties.gif)
-
-### Property view
-
-![property_view.gif](property_view.gif)
-
 ## Comments
 
 There are some points that I think can be better, for example:
