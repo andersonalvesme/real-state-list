@@ -20,7 +20,7 @@ export default async function Page({ params }: { params: { id: number } }) {
         <GoBack/>
       </div>
       <div className="grid grid-cols-6 gap-3 m-4">
-        <div className="col-span-4">
+        <div className="col-span-6 md:col-span-4">
           <div className="flex flex-col gap-3">
             <section className="flex flex-row justify-between">
               <div>
@@ -71,7 +71,7 @@ export default async function Page({ params }: { params: { id: number } }) {
             </section>
           </div>
         </div>
-        <div className="col-span-2">
+        <div className="col-span-6 md:col-span-2">
           <div className="flex flex-col gap-3">
             <section>
               <SaveProperty property={property}/>
