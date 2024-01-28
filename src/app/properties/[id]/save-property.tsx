@@ -1,25 +1,47 @@
 'use client'
 
 import ButtonIcon from "@/components/ButtonIcon";
-import { useState } from "react";
 import { PropertyType } from "@/lib/properties";
+import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 
 type SavePropertyType = {
   property: PropertyType
 }
 
 export default function SaveProperty({ property }: SavePropertyType) {
-  const [savedProperties, setSavedProperties] = useState<PropertyType[]>([])
-  const isSaved = !!savedProperties.find(savedProperty => savedProperty.Id === property.Id);
+  const KEY = 'savedProperties'
+  const savedProperties = useRef<PropertyType[]>([])
+  const [isSaved, setIsSaved] = useState(false)
   const handleSaveProperty = () => {
+    if (!isSaved) addItem()
+    else removeItem()
 
-    if (isSaved) {
-      setSavedProperties(prevState => (prevState.filter(entry => entry.Id !== property.Id)))
-      return
-    }
-
-    setSavedProperties(prevState => ([...prevState, property]))
+    toast.message('Saved properties:', {
+      description: savedProperties.current.map((entry: PropertyType) => (
+        <div className="flex flex-row gap-2 w-full" key={entry.Id}>
+          <div>{entry.Title}</div>
+          <div className="text-right">$ {entry["Sale Price"].toString().replace(/(.{3})(?=.)/g, "$1 ")}</div>
+        </div>
+      )),
+      position: 'top-center'
+    })
   }
+  const addItem = () => {
+    savedProperties.current = [...savedProperties.current, property]
+    localStorage.setItem(KEY, JSON.stringify(savedProperties.current))
+    setIsSaved(true)
+  }
+  const removeItem = () => {
+    savedProperties.current = savedProperties.current.filter((entry: PropertyType) => entry.Id !== property.Id)
+    localStorage.setItem(KEY, JSON.stringify(savedProperties.current))
+    setIsSaved(false)
+  }
+
+  useEffect(() => {
+    savedProperties.current = JSON.parse(localStorage.getItem(KEY) ?? '[]')
+    setIsSaved(!!savedProperties.current.find((entry: PropertyType) => entry.Id === property.Id))
+  }, []);
 
   return (
     <>
