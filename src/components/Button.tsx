@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { MouseEventHandler, ReactNode } from "react";
 import cn from "classnames";
 
 export type ButtonType = {
@@ -6,6 +6,7 @@ export type ButtonType = {
   type?: "submit" | "reset" | "button";
   size?: string;
   full?: boolean;
+  onClick?: MouseEventHandler;
 }
 
 export default function Button({ children, size = 'sm', full = true, ...props }: ButtonType) {

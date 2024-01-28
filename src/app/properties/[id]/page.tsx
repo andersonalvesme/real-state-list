@@ -1,9 +1,9 @@
 import { getById } from "@/lib/properties";
 import { notFound } from "next/navigation";
 import { getFormattedDate } from "@/utils/date.utils";
-import ButtonIcon from "@/components/ButtonIcon";
 import Image from "next/image";
 import Contact from "@/app/properties/[id]/contact";
+import SaveProperty from "@/app/properties/[id]/save-property";
 
 export default async function Page({ params }: { params: { id: number } }) {
   const id = params.id
@@ -68,8 +68,8 @@ export default async function Page({ params }: { params: { id: number } }) {
       </div>
       <div className="col-span-2">
         <div className="flex flex-col gap-3">
-          <section className="text-right h-11">
-            <ButtonIcon full={false} size="md">Save Property</ButtonIcon>
+          <section>
+            <SaveProperty property={property}/>
           </section>
           <section>
             <Contact/>
