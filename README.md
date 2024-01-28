@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project bootstrapped
+with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+To run the project:
 
 ```bash
+npm install
+-
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## About
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This project was built using:
 
-## Learn More
+- NextJS 14 (App Router)
+- React 18 (Function Components/Hooks)
+- TypeScript
+- Tailwindcss
 
-To learn more about Next.js, take a look at the following resources:
+There are two endpoints:
+- http://localhost:3000/properties
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This endpoint show all the properties in four columns and two lines, that are filtered using the header filter.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- http://localhost:3000/properties/5631
 
-## Deploy on Vercel
+This endpoint show a specific property that you can save in a list and/or submit a contact form.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+PS: If you enter in a URL using an invalid Id, a NotFound page will be shown.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Structure
+
+- app: Where all the layout files are placed according to the Next pattern;
+- assets: Where is placed the mocked data of properties and images of them;
+- components: Custom components created for this project, just to show;
+- lib: It's having a file to simulate and endpoint call;
+- utils: Folder that you can put all the assistant functions.
+
+### Components/Packages
+
+- DoubleRangeSlider: Made this component from zero, checking some examples on the internet and adjusting for this project;
+- use-debounce: Used this package to apply a debounce on filter;
+- Form validation: Used react-hook-form and yup to validate the Contact Form;
+- sonner: Used this package to show the toast with the success message and a modal showing the saved properties;
+- localStorage: To show the saved Properties I used the localStorage.
+
+## Result
+
+In these videos below I am showing the final result.
+
+### Properties
+
+![properties.gif](properties.gif)
+
+### Property view
+
+![property_view.gif](property_view.gif)
+
+## Comments
+
+There are some points that I think can be better, for example:
+- Adding a pagination on properties screen;
+- Adding a tooltip on price filter to show the value if the filter range;

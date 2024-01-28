@@ -47,8 +47,9 @@ export default function Contact() {
         <input
           type="text"
           placeholder="Full Name *"
-          className={cn("w-full p-2 rounded border border-slate-300 focus:outline-none", {
-            'border-red-500': errors.full_name
+          className={cn("w-full p-2 rounded border focus:outline-none", {
+            'border-red-500': errors.full_name,
+            'border-slate-300': !errors.full_name
           })}
           {...register('full_name')}
         />
@@ -59,8 +60,9 @@ export default function Contact() {
         <input
           type="text"
           placeholder="Email *"
-          className={cn("w-full p-2 rounded border border-slate-300 focus:outline-none", {
-            'border-red-500': errors.email
+          className={cn("w-full p-2 rounded border focus:outline-none", {
+            'border-red-500': errors.email,
+            'border-slate-300': !errors.email
           })}
           {...register('email', { required: true })}
         />
@@ -71,8 +73,9 @@ export default function Contact() {
         <input
           type="number"
           placeholder="Phone Number *"
-          className={cn("w-full p-2 rounded border border-slate-300 focus:outline-none", {
-            'border-red-500': errors.phone
+          className={cn("w-full p-2 rounded border focus:outline-none", {
+            'border-red-500': errors.phone,
+            'border-slate-300': !errors.phone
           })}
           {...register('phone', { required: true })}
         />
@@ -82,8 +85,9 @@ export default function Contact() {
       <div>
         <textarea
           placeholder="Comments *"
-          className={cn("w-full p-2 rounded border border-slate-300 focus:outline-none", {
-            'border-red-500': errors.comments
+          className={cn("w-full p-2 rounded border focus:outline-none", {
+            'border-red-500': errors.comments,
+            'border-slate-300': !errors.comments
           })}
           {...register('comments', { required: true })}
         />
