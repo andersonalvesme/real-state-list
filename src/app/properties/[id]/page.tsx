@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getFormattedDate } from "@/utils/date.utils";
 import ButtonIcon from "@/components/ButtonIcon";
 import Image from "next/image";
-import Button from "@/components/Button";
+import Contact from "@/app/properties/[id]/contact";
 
 export default async function Page({ params }: { params: { id: number } }) {
   const id = params.id
@@ -69,15 +69,10 @@ export default async function Page({ params }: { params: { id: number } }) {
       <div className="col-span-2">
         <div className="flex flex-col gap-3">
           <section className="text-right h-11">
-            <ButtonIcon label="Save Property" full={false} size="md"/>
+            <ButtonIcon full={false} size="md">Save Property</ButtonIcon>
           </section>
-          <section className="border bg-gray-200 rounded p-3 flex flex-col gap-4">
-            <h2 className="text-center text-lg">Contact Agent</h2>
-            <input className="w-full p-2 rounded border border-slate-300" type="text" placeholder="Full Name *"/>
-            <input className="w-full p-2 rounded border border-slate-300" type="text" placeholder="Email *"/>
-            <input className="w-full p-2 rounded border border-slate-300" type="text" placeholder="Phone Number *"/>
-            <textarea className="w-full p-2 rounded border border-slate-300" placeholder="Comments *"/>
-            <Button label="Contact Now" size="md"/>
+          <section>
+            <Contact/>
           </section>
         </div>
       </div>

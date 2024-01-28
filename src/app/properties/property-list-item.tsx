@@ -30,7 +30,7 @@ export default function PropertyListItem({ property }: PropertyListItemType) {
           $ {property["Sale Price"].toString().replace(/(.{3})(?=.)/g, "$1 ")}
         </p>
         <Link href={`/properties/${property.Id}`}>
-          <Button size="md" label="View Details"/>
+          <Button size="md">View Details</Button>
         </Link>
       </div>
     </div>

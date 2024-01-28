@@ -96,7 +96,7 @@ export default function Search({ propertyLimits }: { propertyLimits: PropertyAtt
         />
       </div>
       <div className="flex-none w-24">
-        <Button label="Search" onClick={handleSearch}/>
+        <Button onClick={handleSearch}>Search</Button>
       </div>
     </div>
   )
