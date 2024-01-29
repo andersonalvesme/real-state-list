@@ -6,20 +6,29 @@ export type ButtonType = {
   type?: "submit" | "reset" | "button";
   size?: string;
   full?: boolean;
+  invisible?: boolean;
   onClick?: MouseEventHandler;
 }
 
-export default function Button({ children, size = 'sm', full = true, ...props }: ButtonType) {
+export default function Button({
+  children,
+  size = 'sm',
+  full = true,
+  invisible = false,
+  ...props
+}: ButtonType) {
   return (
     <button
       {...props}
-      className={cn("bg-blue-500 text-white rounded hover:bg-blue-600", {
+      className={cn("text-white rounded", {
         "p-1": size === 'sm',
         "p-2": size === 'md',
         "w-full": full === true,
+        "bg-blue-500 hover:bg-blue-600": invisible === false,
       })}
     >
       {children}
     </button>
   )
+
 }

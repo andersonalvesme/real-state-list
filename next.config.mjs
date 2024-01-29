@@ -1,21 +1,15 @@
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        hostname: "dummyimage.com"
-      }
-    ]
-  },
-  redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/properties',
-        permanent: true,
-      }
-    ]
-  }
-};
+	reactStrictMode: false,
+	redirects() {
+		return [
+			{
+				source: "/",
+				destination: "/properties",
+				permanent: true,
+			},
+		]
+	},
+}
 
-export default nextConfig;
+export default nextConfig

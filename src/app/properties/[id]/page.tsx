@@ -74,7 +74,7 @@ export default async function Page({ params }: { params: { id: number } }) {
         <div className="col-span-6 md:col-span-2">
           <div className="flex flex-col gap-3">
             <section>
-              <SaveProperty property={property}/>
+              <SaveProperty label="&nbsp;Save Property" property={property}/>
             </section>
             <section>
               <Contact/>
