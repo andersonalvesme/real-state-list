@@ -7,7 +7,9 @@ To run the project:
 
 ```bash
 npm install
--
+```
+
+```bash
 npm run dev
 ```
 
@@ -17,40 +19,34 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 This project was built using:
 
-- NextJS 14 (App Router)
-- React 18 (Function Components/Hooks)
+- Next.js 14
+- React v18.0
 - TypeScript
-- Tailwindcss
+- Tailwind CSS
 
-There are two endpoints:
-- http://localhost:3000/properties
+### Endpoints:
 
-This endpoint show all the properties in four columns and two lines, that are filtered using the header filter.
-
-- http://localhost:3000/properties/5631
-
-This endpoint show a specific property that you can save in a list and/or submit a contact form.
-
-PS: If you enter in a URL using an invalid Id, a NotFound page will be shown.
+- http://localhost:3000/properties: Displays all properties allowing filtering.
+- http://localhost:3000/properties/5631: Display a specific property allowing saving and contact.
+- http://localhost:3000/properties/9999: Unknown Id display the Not Found page.
 
 ### Structure
 
-- app: Where all the layout files are placed according to the Next pattern;
-- assets: Where is placed the mocked data of properties and images of them;
-- components: Custom components created for this project, just to show;
-- lib: It's having a file to simulate and endpoint call;
-- utils: Folder that you can put all the assistant functions.
+`app`: App Router - Where all the pages are placed;<br/>
+`assets`: Files - Where all files are placed;<br/>
+`components`: Custom Components created for this project. Example: <Button/>;<br/>
+`lib`: Methods to simulate a backend request;<br/>
+`utils`: Where all files with auxiliary functions are placed.
 
-### Components/Packages
+### Packages
 
-- DoubleRangeSlider: Made this component from zero, checking some examples on the internet and adjusting for this project;
-- use-debounce: Used this package to apply a debounce on filter;
-- Form validation: Used react-hook-form and yup to validate the Contact Form;
-- sonner: Used this package to show the toast with the success message and a modal showing the saved properties;
-- localStorage: To show the saved Properties I used the localStorage.
+`classnames`: A simple JavaScript utility for conditionally joining classNames together;<br/>
+`react-hook-form`: Performant, flexible and extensible forms library for React Hooks (Combined with `yup`);<br/>
+`react-slider`: Slider component for React;<br/>
+`sonner`: An opinionated toast component for React;<br/>
+`use-debounce`: Debounce hook for react.
 
-## Comments
+## Next steps
 
-There are some points that I think can be better, for example:
-- Adding a pagination on properties screen;
-- Adding a tooltip on price filter to show the value if the filter range;
+- Add pagination on properties page;
+- Add tooltip on price filter to show selected value;
